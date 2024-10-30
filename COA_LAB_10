@@ -1,0 +1,88 @@
+1. (a) Write a program in assembly language to print the numbers from 0 to 9.
+
+ORG 100h               ; Origin for COM file format
+
+; Print numbers from 0 to 9
+MOV CX, 10             ; Loop counter set to 10 (for numbers 0 to 9)
+MOV AL, 0              ; Start with the number 0
+
+print_loop:
+    ; Convert number in AL to ASCII character
+    ADD AL, '0'        ; Convert number to ASCII
+
+    ; Print the character
+    MOV DL, AL         ; Move the ASCII character to DL
+    MOV AH, 02h        ; DOS function 02h: print character
+    INT 21h            ; Call DOS interrupt
+
+    ; Prepare for the next iteration
+    SUB AL, '0'        ; Convert back to integer
+    INC AL             ; Increment the number
+    LOOP print_loop     ; Loop until CX is zero
+
+; Terminate the program
+MOV AH, 4Ch            ; DOS function 4Ch: terminate program
+INT 21h                ; Call DOS interrupt to exit
+
+END                     ; End of program
+
+
+(b) Write an assembly language program to print the characters from A to Z in reverse order.
+
+ORG 100h               ; Origin for COM file format
+
+; Print characters from 'Z' to 'A'
+MOV CX, 26             ; Loop counter set to 26 (for letters A to Z)
+MOV AL, 'Z'            ; Start with the character 'Z'
+
+print_loop:
+    ; Print the character
+    MOV DL, AL         ; Move the character to DL
+    MOV AH, 02h        ; DOS function 02h: print character
+    INT 21h            ; Call DOS interrupt
+
+    ; Prepare for the next iteration
+    DEC AL             ; Move to the previous character
+    LOOP print_loop     ; Loop until CX is zero
+
+; Terminate the program
+MOV AH, 4Ch            ; DOS function 4Ch: terminate program
+INT 21h                ; Call DOS interrupt to exit
+
+END                     ; End of program
+
+
+Practice set:
+(b) Write an assembly language program to print the characters from A to Z.
+ORG 100H               ; Start at offset 100H for .COM file format
+
+MOV CX, 26             ; Loop counter for 26 characters (A to Z)
+MOV DL, 'A'            ; Start with ASCII code of 'A'
+
+PRINT_LOOP:
+    MOV AH, 2          ; Function to print character
+    INT 21H            ; Print character in DL
+
+    INC DL             ; Move to the next character (A -> B -> C ...)
+    LOOP PRINT_LOOP    ; Repeat until CX reaches 0
+
+MOV AH, 4CH            ; Terminate the program
+INT 21H
+
+
+
+2. (a) Write a program in assembly language to print the numbers from 0 to 9 in REVERSE ORDER
+ORG 100H               ; Start at offset 100H for .COM file format
+
+MOV CX, 10             ; Loop counter for 10 numbers (9 to 0)
+MOV DL, '9'            ; Start with ASCII code of '9'
+
+PRINT_LOOP:
+    MOV AH, 2          ; Function to print character
+    INT 21H            ; Print character in DL
+
+    DEC DL             ; Move to the previous number (9 -> 8 -> 7 ...)
+    LOOP PRINT_LOOP    ; Repeat until CX reaches 0
+
+MOV AH, 4CH            ; Terminate the program
+INT 21H
